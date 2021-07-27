@@ -1,8 +1,9 @@
 create();
-
 function create(){
+try{
 var x=[];
 var N=9;
+
 for(var i=0;i<N;i++){
     for(var j=0;j<N;j++){
         var k=getK(i,j);
@@ -18,6 +19,10 @@ for(var c in x){
  process.stdout.write(""+x[c].v+" ");
  
 }
+}catch(e){
+    console.error(e.message);
+    create();
+}
 }
 
 function insertValue(i,j,k,x){
@@ -27,7 +32,7 @@ function insertValue(i,j,k,x){
            avail.splice(avail.indexOf(x[c].v),1);
        }
    }
-   if(avail.length==0)return 0;
+   if(avail.length==0){throw new Error("Not feasible....");}
    if(avail.length==1)return avail[0];
    else return avail[Math.floor(Math.random()*avail.length)];
 }
